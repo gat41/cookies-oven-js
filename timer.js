@@ -7,6 +7,7 @@ var endTimeAfter = 10;
 var endTime = endTimeAfter; //seconds
 var timerRunning = false;
 
+// move to oven/script.js
 function changeStatusText(currentTime) {
   p = document.getElementById('cookie-status');
 
@@ -40,12 +41,8 @@ function createAlertNotice(){
 function outputTime() {
   p = document.getElementById("timer");
 
-  if (currentTime < 10) {
-    p.innerHTML= '00:00:0' + currentTime;
-  }
-  else {
-    p.innerHTML= '00:00:' + currentTime;
-  }
+  // ES6 supports string interpolation
+  p.innerHTML = currentTime < 10 ? '00:00:0' + currentTime : '00:00:' + currentTime;
 
   changeStatusText(currentTime);
 
@@ -64,21 +61,23 @@ function outputTime() {
 
 }
 
-function timer()
-{
-	if(document.getElementById('alert')){
-		alert = document.getElementById('alert');
-		document.body.removeChild(alert);
-	}
-
+function startTimer() {
+  // dont run the timer if there is already one timer running!
   if(!timerRunning){
-    counter = setInterval(function(){ outputTime() }, 1000); //1000 will run it every 1 second
-    // timerRunning = true
+    counter = setInterval(function(){ outputTime() }, 1000); // 1000 milliseconds
+    timerRunning = true;
   }
 }
 
+function endTimer() {
+  alertNotice = document.getElementById('alert');
+  document.body.removeChild(alertNotice);
+  timerRunning = false;
+}
+
+// move to oven/script.js
 function initTimerFunc() {
     startBtn = document.getElementById('start-btn');
-    startBtn.addEventListener("click", timer);
+    startBtn.addEventListener("click", startTimer);
 }
 document.addEventListener('DOMContentLoaded', initTimerFunc);
