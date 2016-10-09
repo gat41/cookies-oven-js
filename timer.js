@@ -3,60 +3,65 @@
 
 var counter;
 var currentTime = 0;
-var endTimeAfter=10;
-var endTime=endTimeAfter; //seconds
+var endTimeAfter = 10;
+var endTime = endTimeAfter; //seconds
+var timerRunning = false;
 
-function cookieStatus(currentTime) {
- 
- p = document.getElementById('cookie-status');
- 
- if ( currentTime < 5  ) {
- 	p.innerHTML = 'doughy..';
- }
- else if ( currentTime < 10 ) {
-	p.innerHTML = '';
-	p.innerHTML = 'almost ready..';	 
- }
- else if ( currentTime < 15 ) {
- 	p.innerHTML = '';
- 	p.innerHTML = 'ready!';
- }
- else {
- 	p.innerHTML = '';
-  	p.innerHTML = 'Cookies are burnt!';
- }
+function changeStatusText(currentTime) {
+  p = document.getElementById('cookie-status');
+
+  if ( currentTime < 5 ) {
+ 	  p.innerHTML = 'doughy..';
+  }
+  else if ( currentTime < 10 ) {
+    p.innerHTML = '';
+	  p.innerHTML = 'Almost ready..';
+  }
+  else if ( currentTime < 15 ) {
+    p.innerHTML = '';
+ 	  p.innerHTML = 'ready!';
+  }
+  else {
+    p.innerHTML = '';
+    p.innerHTML = 'Cookies are burnt!';
+  }
+}
+
+function createAlertNotice(){
+  alertNotice = document.createElement('a');
+  alertNotice.setAttribute('id', 'alert');
+  alertNotice.setAttribute('class', 'link');
+  alertNotice.innerHTML = 'The cookies are done! Press stop to take them out of the oven.';
+
+  return alertNotice;
 }
 
 
 function outputTime() {
-  p = document.getElementById("timer"); 
-  
+  p = document.getElementById("timer");
+
   if (currentTime < 10) {
-  p.innerHTML= '00:00:0' + currentTime; 
+    p.innerHTML= '00:00:0' + currentTime;
   }
   else {
-  p.innerHTML= '00:00:' + currentTime;      
+    p.innerHTML= '00:00:' + currentTime;
   }
-  
-  cookieStatus(currentTime);
-  
-    if (currentTime == endTime)
-    {
-       alertNotice = document.createElement('a');
-       alertNotice.setAttribute('id', 'alert');
-       alertNotice.setAttribute('class', 'link');
-       alertNotice.innerHTML = 'The cookies are done! Press stop to take them out of the oven.';
-       p = document.getElementById('cookie-status');
-       document.body.insertBefore(alertNotice, p.nextSibling);
-                   setTimeout(function(){
-                                   alertNotice.className += ' show';
-                               }, 10);
-        endTime = endTimeAfter; //to reset timer
-     //  return;
-    }
-  
-  currentTime += 1;   
-    
+
+  changeStatusText(currentTime);
+
+  if (currentTime === endTime) {
+     alertNotice = createAlertNotice();
+     p = document.getElementById('cookie-status');
+     document.body.insertBefore(alertNotice, p.nextSibling);
+                 setTimeout(function(){
+                                 alertNotice.className += ' show';
+                             }, 10);
+      endTime = endTimeAfter; //to reset timer
+   //  return;
+  }
+
+  currentTime += 1;
+
 }
 
 function timer()
@@ -65,15 +70,15 @@ function timer()
 		alert = document.getElementById('alert');
 		document.body.removeChild(alert);
 	}
-	 
 
-   counter=setInterval(function(){outputTime()}, 1000); //1000 will  run it every 1 second
-   }
-  
+  if(!timerRunning){
+    counter = setInterval(function(){ outputTime() }, 1000); //1000 will run it every 1 second
+    // timerRunning = true
+  }
+}
 
-
-function timerFunc() {
+function initTimerFunc() {
     startBtn = document.getElementById('start-btn');
     startBtn.addEventListener("click", timer);
 }
-document.addEventListener('DOMContentLoaded', timerFunc);
+document.addEventListener('DOMContentLoaded', initTimerFunc);

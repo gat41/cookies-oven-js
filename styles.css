@@ -43,7 +43,7 @@ h2 {
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
-	background-color:black; 
+	background-color:black;
 	float: right;
 	margin-right: 8px;
 	margin-top:5px;
@@ -84,7 +84,7 @@ h2 {
   10%, 90% {
     transform: translate3d(-2px, 0, 0);
   }
-  
+
   20%, 80% {
     transform: translate3d(4px, 0, 0);
   }
@@ -105,6 +105,4 @@ h2 {
 
 /*Cookie dough image source: http://www.spunkmeyer.com/Our-Products/Foodservice-Products/Frozen-Cookie-Dough/Sweet-Discovery-/Butter-Sugar-Cookies---58804/ */
 
-/*fire:
-http://www.clipartpanda.com/categories/fire-flame-cartoon
-*/
+/*fire:http://www.clipartpanda.com/categories/fire-flame-cartoon*/
