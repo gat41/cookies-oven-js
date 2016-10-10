@@ -37,6 +37,13 @@ function resetCookieAndOven(){
   // reset background image of oven
   oven = document.getElementById('oven')
   oven.style.backgroundImage = '';
+
+  // reset Status
+  cookieStatus = document.getElementById('cookie-status');
+  cookieStatus.innerHTML = '';
+
+  // remove alert if there is one
+  document.body.removeChild(document.getElementById('alert'));
 }
 
 function createOvenRestartBtn() {
