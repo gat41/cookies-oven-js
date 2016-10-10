@@ -1,5 +1,5 @@
-var cookie_count = 0;
-var cookie_limit = 10;
+var cookieCount = 0;
+var cookieLimit = 10;
 
 function createCookieImg(){
   cookieImg = document.createElement('img');
@@ -9,7 +9,7 @@ function createCookieImg(){
   cookieImg.style.width = size;
   cookieImg.style.height = size;
   cookieImg.style.margin = '3px';
-  cookie_count += 1;
+  cookieCount += 1;
   return cookieImg;
 }
 
@@ -30,46 +30,44 @@ function clearCookies(){
   // google for more ways to do it
   cookieTray.innerHTML = '';
   // remove restart button
-  clearBtn = document.getElementById('restart');
+  clearBtn = document.getElementById('clear');
   document.body.removeChild(clearBtn);
-  // reset cookie_count
-  cookie_count = 0;
+  // reset cookieCount
+  cookieCount = 0;
   // reset text
   p = document.getElementById('counter');
-  p.innerHTML = 'You have placed ' + cookie_count + ' cookie dough onto the tray.';
+  p.innerHTML = 'You have placed ' + cookieCount + ' cookie dough onto the tray.';
 }
 
-
 function addCookie(){
-    // find counter <p> tag
-    p = document.getElementById('counter');
-
-    // check how many cookies added
-    if(cookie_count >= cookie_limit) {
-       	p.innerHTML = 'Oops, your tray can\'t take anymore cookies. Clear the tray or start the oven! :)';
-        clearBtn = document.getElementById('clear');
-        // if restart button not found, show result button (needed to avoid duplicate when spammed)
+  // find counter <p> tag
+  p = document.getElementById('counter');
+  // check how many cookies added
+  if (cookieCount >= cookieLimit) {
+   	p.innerHTML = 'Oops, your tray can\'t take anymore cookie doughs. Clear the tray or start the oven! :)';
+    clearBtn = document.getElementById('clear');
+    // if restart button not found, show result button (needed to avoid duplicate when spammed)
+  }
+  else {
+    cookieImg = createCookieImg();
+    div = document.getElementById('tray');
+    div.appendChild(cookieImg);
+    p.innerHTML = 'You have placed ' + cookieCount + ' cookie dough onto the tray.';
+    if(!document.getElementById('clear')){
+      clearBtn = createClearBtn();
+      // a way to do insert after, js does not have insertAfter func
+      document.body.insertBefore(clearBtn, p.nextSibling);
+      // [STUDENT] try changing the numerical value of setTimeout second argument to see how it affects the program
+      setTimeout(function(){
+        clearBtn.className += ' wiggle';
+      }, 10);
     }
-    else {
-        cookieImg = createCookieImg();
-        div = document.getElementById('tray');
-        div.appendChild(cookieImg);
-        p.innerHTML = 'You have placed ' + cookie_count + ' cookie dough onto the tray.';
-        if(!document.getElementById('clear')){
-          clearBtn = createClearBtn();
-          // a way to do insert after, js does not have insertAfter func
-          document.body.insertBefore(clearBtn, p.nextSibling);
-          // [STUDENT] try changing the numerical value of the setTimeout to see how it affects the program
-          setTimeout(function(){
-            clearBtn.className += ' wiggle';
-          }, 10);
-        }
-    }
+  }
 }
 
 function cookieStart(){
-    cookie = document.getElementById('add-cookie');
-    cookie.addEventListener("click", addCookie);
+  addCookieBtn = document.getElementById('add-cookie');
+  addCookieBtn.addEventListener("click", addCookie);
 }
 
 // wait for DOM content to load before binding an event
