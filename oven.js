@@ -1,13 +1,10 @@
-var i;
-
-function clearFinalCookies(){
-    startTray = document.getElementById('tray');
-    finalTray = document.getElementById('final-tray-img');
+function resetCookieAndOven(){
     // remove the last child in the div until there is no child element in it
-    while(finalTray.childElementCount != 0) {
-        startTray.removeChild(startTray.lastChild);
-        finalTray.removeChild(finalTray.lastChild);
-    }
+    startTray = document.getElementById('tray');
+    finalTray = document.getElementById('final-tray');
+
+    startTray.innerHTML = '';
+    finalTray.innerHTML = '';
 
     // remove restart button
     restartBtn = document.getElementById('restart');
@@ -18,7 +15,7 @@ function clearFinalCookies(){
   	p.innerHTML = '';
 
     // clear tray
-  	finalTrayContainer = document.getElementById('final-tray');
+  	finalTrayContainer = document.getElementById('final-tray-container');
   	finalTrayContainer.removeChild(finalTray);
 
     // clear cookie count
@@ -33,69 +30,75 @@ function clearFinalCookies(){
 
 }
 
-function showFinalTray() {
-
-   // from timer.js
-	 clearInterval(counter);
-
-	 p = document.getElementById("timer");
-	  // currentTime -= 1;
-	 if (currentTime < 10) {
-	   p.innerHTML= '00:00:0' + currentTime;
-	 }
-	 else {
-	   p.innerHTML= '00:00:' + currentTime;
-	 }
-
-   // disable stop button
-	 document.getElementById('stop-btn').disabled = true;
-
-	 finalTrayContainer = document.getElementById('final-tray');
-
-	 finalTray = document.createElement('div');
-	 finalTray.setAttribute('id', 'final-tray-img');
-	 console.log(finalTray);
-	 finalTrayContainer.appendChild(finalTray);
-
-   p = document.getElementById('final-statement');
-
-  if (currentTime < 15) {
-			for (i = 0; i < cookie_count; i++) {
-				cookieImg = document.createElement('img');
-        cookieImg.setAttribute('src', 'img/cookie.jpg');
-        size = '30px';
-        cookieImg.style.width = size;
-        cookieImg.style.height = size;
-        cookieImg.style.margin = '3px';
-
-			  finalTray.appendChild(cookieImg);
-			}
-
-			p.innerHTML = "Yum yum!"
-		}
-	else {
-		burntImg = document.createElement('img');
-		burntImg.setAttribute('src', 'img/burnt.jpg');
-		burntImg.style.width = '40px';
-	  burntImg.style.height = '60px';
-		finalTray.appendChild(burntImg);
-
-		p.innerHTML = "Awww, the cookies are burnt. Try again!"
-
-	}
-
-	// create restart button to clear the tray..
+function createOvenRestartBtn() {
+  // create restart button to clear the tray..
 	restartBtn = document.createElement('a');
   restartBtn.setAttribute('id', 'restart');
   restartBtn.setAttribute('class', 'link');
   restartBtn.innerHTML = 'Restart';
-  document.body.insertBefore(restartBtn, p.nextSibling);
+  return restartBtn;
+}
+
+function createBakedCookieImg() {
+  cookieImg = document.createElement('img');
+  cookieImg.setAttribute('src', 'img/cookie.jpg');
+  size = '30px';
+  cookieImg.style.width = size;
+  cookieImg.style.height = size;
+  cookieImg.style.margin = '3px';
+  return cookieImg;
+}
+
+function createBurntImg() {
+  burntImg = document.createElement('img');
+  burntImg.setAttribute('src', 'img/burnt.jpg');
+  burntImg.style.width = '40px';
+  burntImg.style.height = '60px';
+  return burntImg;
+}
+
+function createTray() {
+  finalTray = document.createElement('div');
+  finalTray.setAttribute('id', 'final-tray');
+  return finalTray;
+}
+
+function showFinalTray() {
+  // from timer.js
+	endTimer();
+
+  // disable stop button
+  document.getElementById('stop-btn').disabled = true;
+
+  // create final tray
+  finalTray = createTray();
+	finalTrayContainer = document.getElementById('final-tray-container');
+  finalStatement = document.getElementById('final-statement');
+
+  if (currentTime < 15) {
+    for (var i = 0; i < cookie_count; i++) {
+      finalTray.appendChild(createBakedCookieImg());
+    }
+		finalStatement.innerHTML = "Yum yum!"
+  }
+	else {
+    burntImg = createBurntImg();
+		finalTray.appendChild(burntImg);
+		finalStatement.innerHTML = "Oh no, the cookies are burnt! Try again!"
+	}
+
+  finalTrayContainer.appendChild(finalTray);
+
+  // create restart button
+  restartBtn = createOvenRestartBtn();
+  document.body.insertBefore(restartBtn, finalStatement.nextSibling);
+
+  // setTimeout(func, how long before execute function)
+  // try changing the numerical value of the setTimeout to see how it affects the program
   setTimeout(function(){
     restartBtn.className += ' show';
   }, 10);
-  // setTimeout(func, how long before execute function)
-  // try changing the numerical value of the setTimeout to see how it affects the program
-  restartBtn.addEventListener('click', clearFinalCookies);
+  restartBtn.addEventListener('click', resetCookieAndOven);
 }
 
 function showFunc() {

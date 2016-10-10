@@ -2,6 +2,22 @@ h2 {
 	text-align: center;
 }
 
+body {
+	background-image: url("img/kitchen.jpeg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: white;
+}
+
+.instructions {
+	border-style: solid;
+	border-width: medium;
+	border-color: black;
+	width: 300px;
+	margin: 0 auto;
+	padding: 10px;
+}
+
 #tray {
 	width: 180px;
 	height: 80px;
@@ -9,7 +25,7 @@ h2 {
 	/*margin: auto;*/
 }
 
-#final-tray-img {
+#final-tray {
 	width: 180px;
 	height: 80px;
 	border:2px solid grey;
@@ -64,7 +80,7 @@ h2 {
   height: 2em;
 }
 
-.show {
+.wiggle {
   opacity: 1;
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
