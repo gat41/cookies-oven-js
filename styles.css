@@ -9,6 +9,11 @@ body {
 	color: white;
 }
 
+.col {
+	width: 45%;
+	display: inline-table;	
+}
+
 .instructions {
 	border-style: solid;
 	border-width: medium;

@@ -19,7 +19,7 @@ function changeStatusText(currentTime) {
   else if (currentTime <= timeDone * 1.25) {
  	  cookieStatus.innerHTML = 'Status: Ready!';
     if(!document.getElementById('alert')){
-      document.body.insertBefore(createAlertNotice('done'), cookieStatus.nextSibling)
+      cookieStatus.parentNode.insertBefore(createAlertNotice(), cookieStatus.nextSibling)
     }
   }
   else {
