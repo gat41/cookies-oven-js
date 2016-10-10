@@ -5,7 +5,6 @@ function createCookieImg(){
   cookieImg = document.createElement('img');
   cookieImg.setAttribute('src', 'img/cookie-dough.jpg');
   size = '30px';
-  // change css of cookieImg
   cookieImg.style.width = size;
   cookieImg.style.height = size;
   cookieImg.style.margin = '3px';

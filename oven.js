@@ -76,10 +76,13 @@ function showFinalTray() {
     endTimer();
     // disable stop button
     document.getElementById('stop-btn').disabled = true;
+
     // create final tray
     finalTray = createTray();
     finalTrayContainer = document.getElementById('final-tray-container');
     finalStatement = document.getElementById('final-statement');
+
+    // filling tray with either cookies or burnt image
     if (currentTime < 15) {
       for (var i = 0; i < cookieCount; i++) {
         finalTray.appendChild(createBakedCookieImg());
@@ -92,9 +95,11 @@ function showFinalTray() {
       finalStatement.innerHTML = "Oh no, the cookies are burnt! Try again!"
     }
     finalTrayContainer.appendChild(finalTray);
+
     // create restart button
     restartBtn = createOvenRestartBtn();
     document.body.insertBefore(restartBtn, finalStatement.nextSibling);
+    
     // try changing the numerical value of the setTimeout to see how it affects the program
     setTimeout(function(){
       restartBtn.className += ' show'; // .show css has animation
