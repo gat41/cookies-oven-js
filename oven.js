@@ -30,7 +30,13 @@ function resetCookieAndOven(){
 
   // re-enable stop button
 	document.getElementById('stop-btn').disabled = false;
-  document.getElementById('timer').innerHTML = '';
+  timer = document.getElementById('timer')
+  timer.innerHTML = '';
+  timer.style.color = 'white';
+
+  // reset background image of oven
+  oven = document.getElementById('oven')
+  oven.style.backgroundImage = '';
 }
 
 function createOvenRestartBtn() {
@@ -99,7 +105,7 @@ function showFinalTray() {
     // create restart button
     restartBtn = createOvenRestartBtn();
     document.body.insertBefore(restartBtn, finalStatement.nextSibling);
-    
+
     // try changing the numerical value of the setTimeout to see how it affects the program
     setTimeout(function(){
       restartBtn.className += ' show'; // .show css has animation

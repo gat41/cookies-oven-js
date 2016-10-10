@@ -5,31 +5,37 @@
 // on a global scope like this but in this case for the sake of simplicity
 var timer;
 var currentTime = 0;
-var endTimeAfter = 10;
-var endTime = endTimeAfter; //seconds
+var timeDone = 15;
 var timerRunning = false;
 
 function changeStatusText(currentTime) {
   cookieStatus = document.getElementById('cookie-status');
-  if (currentTime < 5) {
+  if (currentTime < timeDone * 0.5) { // approximately 7 seconds
  	  cookieStatus.innerHTML = 'Status: Doughy..';
   }
-  else if (currentTime < 10) {
+  else if (currentTime < timeDone * 0.75) {
 	  cookieStatus.innerHTML = 'Status: Almost ready..';
   }
-  else if (currentTime < 15) {
+  else if (currentTime <= timeDone * 1.25) {
  	  cookieStatus.innerHTML = 'Status: Ready!';
+    if(!document.getElementById('alert')){
+      document.body.insertBefore(createAlertNotice('done'), cookieStatus.nextSibling)
+    }
   }
   else {
     cookieStatus.innerHTML = 'Status: Burnt!!!!';
-    document.body.insertBefore(createAlertNotice(), p.nextSibling)
+    oven = document.getElementById('oven');
+    oven.style.backgroundImage = "url('img/fire.jpg')";
+    oven.style.backgroundSize = 'contain';
+    document.getElementById('timer').style.color = 'white';
+    document.getElementById('alert').innerHTML = 'THE COOKIES ARE BURNT!!!'
   }
 }
 
 function createAlertNotice(){
-  alertNotice = document.createElement('a');
+  alertNotice = document.createElement('p');
   alertNotice.setAttribute('id', 'alert');
-  alertNotice.setAttribute('class', 'link');
+  // alertNotice.setAttribute('class', 'link');
   alertNotice.innerHTML = 'The cookies are done! Press stop to take them out of the oven.';
 
   return alertNotice;
@@ -44,7 +50,7 @@ function outputTime(currentTime) {
     hours = '00';
   }
   else {
-    time = currentTime/60/60;
+    time = parseInt(currentTime / 60 / 60);
     hours = time < 10 ? '0' + time : time;
   }
 
@@ -52,7 +58,7 @@ function outputTime(currentTime) {
     minutes = '00';
   }
   else {
-    time = currentTime/60;
+    time = parseInt(currentTime / 60);
     minutes = time < 10 ? '0' + time : time;
   }
 
@@ -81,7 +87,7 @@ function startTimer() {
     ovenNotice.innerHTML = '';
     if (!timerRunning) {
       addTime();
-      timer = setInterval(function(){ addTime() }, 1000); // 1000 milliseconds
+      timer = setInterval(function(){ addTime() }, 100); // 1000 milliseconds
       timerRunning = true;
     }
   }

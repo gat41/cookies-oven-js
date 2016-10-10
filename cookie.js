@@ -41,6 +41,9 @@ function clearCookies(){
 function addCookie(){
   // find counter <p> tag
   p = document.getElementById('counter');
+
+  if (timerRunning) { return }
+  
   // check how many cookies added
   if (cookieCount >= cookieLimit) {
    	p.innerHTML = 'Oops, your tray can\'t take anymore cookie doughs. Clear the tray or start the oven! :)';
@@ -64,10 +67,10 @@ function addCookie(){
   }
 }
 
-function cookieStart(){
+function addCookieListener(){
   addCookieBtn = document.getElementById('add-cookie');
   addCookieBtn.addEventListener("click", addCookie);
 }
 
 // wait for DOM content to load before binding an event
-document.addEventListener('DOMContentLoaded', cookieStart);
+document.addEventListener('DOMContentLoaded', addCookieListener);
