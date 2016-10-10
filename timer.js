@@ -87,7 +87,7 @@ function startTimer() {
     ovenNotice.innerHTML = '';
     if (!timerRunning) {
       addTime();
-      timer = setInterval(function(){ addTime() }, 100); // 1000 milliseconds
+      timer = setInterval(function(){ addTime() }, 1000); // 1000 milliseconds
       timerRunning = true;
     }
   }
