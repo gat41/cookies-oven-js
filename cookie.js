@@ -23,6 +23,7 @@ function createClearBtn(){
 }
 
 function clearCookies(){
+  if(timerRunning) { return }
   // remove cookies in tray
   cookieTray = document.getElementById('tray');
   // one of the ways to clear all the children inside the div
@@ -30,7 +31,7 @@ function clearCookies(){
   cookieTray.innerHTML = '';
   // remove restart button
   clearBtn = document.getElementById('clear');
-  document.body.removeChild(clearBtn);
+  clearBtn.parentNode.removeChild(clearBtn);
   // reset cookieCount
   cookieCount = 0;
   // reset text
@@ -42,8 +43,8 @@ function addCookie(){
   // find counter <p> tag
   p = document.getElementById('counter');
 
-  if (timerRunning) { return }
-  
+  if (timerRunning || ovenAlreadyRan) { return }
+
   // check how many cookies added
   if (cookieCount >= cookieLimit) {
    	p.innerHTML = 'Oops, your tray can\'t take anymore cookie doughs. Clear the tray or start the oven! :)';
@@ -58,7 +59,7 @@ function addCookie(){
     if(!document.getElementById('clear')){
       clearBtn = createClearBtn();
       // a way to do insert after, js does not have insertAfter func
-      document.body.insertBefore(clearBtn, p.nextSibling);
+      p.parentNode.insertBefore(clearBtn, p.nextSibling);
       // [STUDENT] try changing the numerical value of setTimeout second argument to see how it affects the program
       setTimeout(function(){
         clearBtn.className += ' wiggle';

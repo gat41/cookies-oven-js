@@ -4,9 +4,10 @@
 // tell them its not be a good practice to declare variable
 // on a global scope like this but in this case for the sake of simplicity
 var timer;
-var currentTime = 0;
+var currentTime = -1;
 var timeDone = 15;
 var timerRunning = false;
+var ovenAlreadyRan = false;
 
 function changeStatusText(currentTime) {
   cookieStatus = document.getElementById('cookie-status');
@@ -16,7 +17,7 @@ function changeStatusText(currentTime) {
   else if (currentTime < timeDone * 0.75) {
 	  cookieStatus.innerHTML = 'Status: Almost ready..';
   }
-  else if (currentTime <= timeDone * 1.25) {
+  else if (currentTime <= timeDone) {
  	  cookieStatus.innerHTML = 'Status: Ready!';
     if(!document.getElementById('alert')){
       cookieStatus.parentNode.insertBefore(createAlertNotice(), cookieStatus.nextSibling)
@@ -71,9 +72,9 @@ function outputTime(currentTime) {
 function addTime() {
   p = document.getElementById("timer");
   // ES6 supports string interpolation (http://es6-features.org/)
+  currentTime += 1;
   p.innerHTML = outputTime(currentTime)
   changeStatusText(currentTime);
-  currentTime += 1;
 }
 
 function getCurrentTime() {
@@ -82,6 +83,7 @@ function getCurrentTime() {
 
 function startTimer() {
   ovenNotice = document.getElementById('oven-notice');
+  if (ovenAlreadyRan) { return }
   // dont run the timer if there is already one timer running!
   if (cookieCount > 0){
     ovenNotice.innerHTML = '';
@@ -89,6 +91,7 @@ function startTimer() {
       addTime();
       timer = setInterval(function(){ addTime() }, 1000); // 1000 milliseconds
       timerRunning = true;
+      ovenAlreadyRan = true;
     }
   }
   else {

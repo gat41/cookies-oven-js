@@ -1,28 +1,22 @@
 function resetCookieAndOven(){
   // remove children inside the elements
   startTray = document.getElementById('tray');
-  finalTray = document.getElementById('final-tray');
   startTray.innerHTML = '';
-  finalTray.innerHTML = '';
 
   // remove restart button
   restartBtn = document.getElementById('restart');
-  document.body.removeChild(restartBtn);
+  restartBtn.parentNode.removeChild(restartBtn);
 
   // clear statement
 	p = document.getElementById('final-statement');
 	p.innerHTML = '';
-
-  // clear tray
-	finalTrayContainer = document.getElementById('final-tray-container');
-	finalTrayContainer.removeChild(finalTray);
 
   // clear cookie count
   cookieCount = 0;
 
   // remove clear button
   clearBtn = document.getElementById('clear');
-  document.body.removeChild(clearBtn);
+  if (clearBtn) { clearBtn.parentNode.removeChild(clearBtn); }
 
   // reset text
 	pStart = document.getElementById('counter');
@@ -43,7 +37,11 @@ function resetCookieAndOven(){
   cookieStatus.innerHTML = '';
 
   // remove alert if there is one
-  document.body.removeChild(document.getElementById('alert'));
+  alert = document.getElementById('alert');
+  if(alert) { alert.parentNode.removeChild(alert) };
+
+  ovenAlreadyRan = false;
+  currentTime = -1;
 }
 
 function createOvenRestartBtn() {
@@ -91,12 +89,13 @@ function showFinalTray() {
     document.getElementById('stop-btn').disabled = true;
 
     // create final tray
-    finalTray = createTray();
-    finalTrayContainer = document.getElementById('final-tray-container');
+    finalTray = document.getElementById('tray');
+    finalTray.innerHTML = '';
+    // finalTrayContainer = document.getElementById('final-tray-container');
     finalStatement = document.getElementById('final-statement');
 
     // filling tray with either cookies or burnt image
-    if (currentTime < 15) {
+    if (currentTime <= timeDone) {
       for (var i = 0; i < cookieCount; i++) {
         finalTray.appendChild(createBakedCookieImg());
       }
@@ -107,11 +106,10 @@ function showFinalTray() {
       finalTray.appendChild(burntImg);
       finalStatement.innerHTML = "Oh no, the cookies are burnt! Try again!"
     }
-    finalTrayContainer.appendChild(finalTray);
 
     // create restart button
     restartBtn = createOvenRestartBtn();
-    document.body.insertBefore(restartBtn, finalStatement.nextSibling);
+    finalStatement.parentNode.insertBefore(restartBtn, finalStatement.nextSibling);
 
     // try changing the numerical value of the setTimeout to see how it affects the program
     setTimeout(function(){
