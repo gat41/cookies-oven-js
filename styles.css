@@ -3,10 +3,10 @@ h2 {
 }
 
 body {
-	background-image: url("img/kitchen.jpeg");
+	background-image: url("img/kitchen.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
-	color: white;
+	color: black;
 }
 
 .col {
@@ -41,7 +41,6 @@ body {
 	width: 200px;
 	height: 100px;
 	border:2px solid #000;
-	/*margin: auto;*/
 }
 
 #small-rectangle {
@@ -57,7 +56,6 @@ body {
 	height: 20px;
 	border:2px solid #000;
 	color: black;
-	/*margin: auto;*/
 }
 
 .knob {
@@ -119,12 +117,3 @@ body {
     transform: translate3d(8px, 0, 0);
   }
 }
-
-
-/*http://www.thefoodmethod.com/2015/03/carob-chips-cookies-copycat-bakery.html*/
-
-/*Cookie image source: http://chocolate.wikia.com/wiki/Chocolate_Chip_Cookie*/
-
-/*Cookie dough image source: http://www.spunkmeyer.com/Our-Products/Foodservice-Products/Frozen-Cookie-Dough/Sweet-Discovery-/Butter-Sugar-Cookies---58804/ */
-
-/*fire:http://www.clipartpanda.com/categories/fire-flame-cartoon*/
